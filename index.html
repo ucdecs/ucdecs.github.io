@@ -941,7 +941,7 @@
       /* https://getbootstrap.com/docs/5.3/layout/grid/ */
       /* sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 1400px */
 
-      @media (min-width: 576px) {
+      @media (min-width: 768px) {
         #controls, #calendar {
           height: calc(100svh);
         }
@@ -960,8 +960,9 @@
       <div id="controls" class="
         col-0 col-md-3
         order-last order-md-first
-        d-sm-none d-md-block
       ">
+        <div style="text-align: center;" class="d-lg-none">(Best viewed on desktop)</div>
+
         <div style="text-align: center;">
           <select id="quarter-select"></select>
         </div>
