@@ -16,17 +16,17 @@
 
       const DEFAULT_QUARTER = 'ss1_25';
       const QUARTERS = {
-        f25: {text: 'Fall 2025'},
-        ss2_25: {text: 'Summer Session 2, 2025'},
-        ss1_25: {text: 'Summer Session 1, 2025'},
-        s25: {text: 'Spring 2025', past: true},
-        w25: {text: 'Winter 2025', past: true},
-        f24: {text: 'Fall 2024', past: true},
-        ss2_24: {text: 'Summer Session 2, 2024', past: true},
-        ss1_24: {text: 'Summer Session 1, 2024', past: true},
-        s24: {text: 'Spring 2024', past: true},
-        w24: {text: 'Winter 2024', past: true},
-        f23: {text: 'Fall 2023', past: true},
+        f25: {text: 'Fall 2025', seed: 202510},
+        ss2_25: {text: 'Summer Session 2, 2025', seed: 202507},
+        ss1_25: {text: 'Summer Session 1, 2025', seed: 202505},
+        s25: {text: 'Spring 2025', seed: 202503, past: true},
+        w25: {text: 'Winter 2025', seed: 202501, past: true},
+        f24: {text: 'Fall 2024', seed: 202410, past: true},
+        ss2_24: {text: 'Summer Session 2, 2024', seed: 202407, past: true},
+        ss1_24: {text: 'Summer Session 1, 2024', seed: 202405, past: true},
+        s24: {text: 'Spring 2024', seed: 202403, past: true},
+        w24: {text: 'Winter 2024', seed: 202401, past: true},
+        f23: {text: 'Fall 2023', seed: 202310, past: true},
       };
 
       const urlParams = new URLSearchParams(window.location.search);
@@ -644,6 +644,7 @@
 
       function onSelectQuarter() {
         $popovers = [];
+        $randomSeed = QUARTERS[getSelectedQuarter()].seed;
         updateHash();
         resetCourses();
         resetCheckboxes();
@@ -929,12 +930,19 @@
         return events;
       }
 
+      // https://stackoverflow.com/a/19303725/7153764
+      let $randomSeed = 1;
+      function random() {
+        let x = Math.sin($randomSeed++) * 10000;
+        return x - Math.floor(x);
+      }
+
       // https://stackoverflow.com/a/1484514/15250012
       function getRandomColor() {
         const letters = '0123456789ABCDEF';
         let color = '#';
         for (let i = 0; i < 6; i++)
-          color += letters[Math.floor(Math.random() * 16)];
+          color += letters[Math.floor(random() * 16)];
         return color;
       }
 
@@ -943,7 +951,7 @@
         const letters = '0123456789ABC';
         let color = '#';
         for (let i = 0; i < 6; i++)
-          color += letters[Math.floor(Math.random() * letters.length)];
+          color += letters[Math.floor(random() * letters.length)];
         return color;
       }
 
